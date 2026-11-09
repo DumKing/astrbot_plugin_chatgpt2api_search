@@ -2,6 +2,8 @@
 
 AstrBot 函数工具 `chatgpt2api_search` 将搜索问题发到自建 ChatGPT2API 的 `POST /v1/search`，返回答案和来源链接。当前对话模型需要支持函数工具。
 
+ChatGPT2API 在上游调用 ChatGPT 网页端的聊天联网搜索。这里返回的是上游模型综合后的回答和它引用的来源，结果的新鲜度、覆盖范围和链接数量取决于上游。接口可能复用已有结果，无法保证每次查询都重新检索，也无法保证实时行情、比分等信息的时效。
+
 ## 安装
 
 需要 AstrBot 4.29.4 至 5.0 之前的版本，以及提供 `/v1/search` 的 ChatGPT2API 实例。可在 AstrBot 插件管理中选择从 Git 仓库安装，填入本仓库地址。也可上传插件 ZIP，或把此目录放入 `data/plugins/` 后加载插件。依赖为 `aiohttp`，见 `requirements.txt`。
