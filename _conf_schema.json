@@ -10,5 +10,11 @@
     "type": "string",
     "hint": "填写 ChatGPT2API 服务的鉴权 Key。",
     "default": ""
+  },
+  "api_path": {
+    "description": "搜索 API 路径",
+    "type": "string",
+    "hint": "默认 /v1/search。反向代理改了路径时，填写实际路径，以 / 开头。",
+    "default": "/v1/search"
   }
 }

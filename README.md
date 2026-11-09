@@ -10,11 +10,12 @@ ChatGPT2API 在上游调用 ChatGPT 网页端的聊天联网搜索。这里返�
 
 ## 配置
 
-在 **插件管理 → ChatGPT2API 网页搜索 → 配置** 填写以下两项。
+在 **插件管理 → ChatGPT2API 网页搜索 → 配置** 填写以下配置。
 
 | 配置 | 说明 |
 | --- | --- |
 | `api_base` | AstrBot 能访问的 ChatGPT2API 服务地址。同一 Docker 网络可填 `http://chatgpt2api/v1`，跨服务器时使用 HTTPS 地址。 |
+| `api_path` | 搜索接口路径，默认 `/v1/search`。如果反向代理改了入口，填写实际路径，如 `/proxy/search`。自定义路径时，服务地址建议只填域名和端口。 |
 | `api_key` | ChatGPT2API 服务的 Bearer Key。在 AstrBot 配置页填写，妥善保管配置文件。 |
 
 ## 使用

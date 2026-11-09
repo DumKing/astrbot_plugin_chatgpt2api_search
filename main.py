@@ -28,6 +28,7 @@ class ChatGPT2APISearchPlugin(Star):
             return "搜索问题须为 1 至 1000 字。"
 
         base_url = str(self.config.get("api_base") or "").strip().rstrip("/")
+        api_path = str(self.config.get("api_path") or "/v1/search").strip()
         key = str(self.config.get("api_key") or "").strip()
         if not base_url or not key:
             return "请先在插件配置中填写 ChatGPT2API 地址和 API Key。"
@@ -39,12 +40,13 @@ class ChatGPT2APISearchPlugin(Star):
                 or parsed.username is not None or parsed.query or parsed.fragment
             ):
                 return "ChatGPT2API 地址格式无效。"
-            if not base_url.endswith("/v1"):
-                base_url += "/v1"
+            endpoint = search_endpoint(base_url, api_path)
+            if endpoint is None:
+                return "搜索接口路径格式无效。"
             timeout = aiohttp.ClientTimeout(total=75)
             async with aiohttp.ClientSession(timeout=timeout) as session:
                 async with session.post(
-                    f"{base_url}/search",
+                    endpoint,
                     headers={"Authorization": f"Bearer {key}"},
                     json={"prompt": prompt},
                     allow_redirects=False,
@@ -84,3 +86,18 @@ def source_links(items):
         title = item.get("title") if isinstance(item, dict) else ""
         sources.append({"title": str(title or "")[:200], "url": url})
     return sources
+
+
+def search_endpoint(base_url: str, path: str) -> str | None:
+    parsed = urlsplit(path)
+    if (
+        not path.startswith("/") or path.startswith("//")
+        or parsed.scheme or parsed.netloc or parsed.query or parsed.fragment
+        or any(part in {"", ".", ".."} for part in path[1:].split("/"))
+        or any(char.isspace() for char in path)
+        or chr(92) in path
+    ):
+        return None
+    if path.startswith("/v1/") and base_url.endswith("/v1"):
+        base_url = base_url[:-3]
+    return base_url + path
