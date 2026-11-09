@@ -1,0 +1,7 @@
+name: astrbot_plugin_chatgpt2api_search
+display_name: ChatGPT2API 网页搜索
+desc: 为 AstrBot 提供 ChatGPT2API 网页搜索工具，返回答案和来源链接。
+version: 1.0.0
+author: DumKing
+astrbot_version: ">=4.29.4,<5"
+repo: https://github.com/DumKing/astrbot_plugin_chatgpt2api_search

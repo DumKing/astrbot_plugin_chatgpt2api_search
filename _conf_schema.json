@@ -1,0 +1,14 @@
+{
+  "api_base": {
+    "description": "ChatGPT2API 服务地址",
+    "type": "string",
+    "hint": "填写 AstrBot 能访问的地址，可带 /v1。同一 Docker 网络可填 http://chatgpt2api/v1。",
+    "default": ""
+  },
+  "api_key": {
+    "description": "ChatGPT2API API Key",
+    "type": "string",
+    "hint": "填写 ChatGPT2API 服务的鉴权 Key。",
+    "default": ""
+  }
+}
